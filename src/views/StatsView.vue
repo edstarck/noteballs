@@ -4,7 +4,4 @@
 
 <script setup></script>
 
-<style scoped>
-/* .stats {
-} */
-</style>
+<style scoped></style>

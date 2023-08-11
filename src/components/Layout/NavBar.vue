@@ -5,8 +5,6 @@
         <div class="navbar-item is-size-4 is-family-monospace">Noteballs</div>
 
         <a
-          @click.prevent="showMobileMenu = !showMobileMenu"
-          :class="{'is-active': showMobileMenu}"
           role="button"
           class="navbar-burger"
           aria-label="menu"
@@ -19,11 +17,7 @@
         </a>
       </div>
 
-      <div
-        id="navbarBasic"
-        :class="{'is-active': showMobileMenu}"
-        class="navbar-menu"
-      >
+      <div id="navbarBasic" class="navbar-menu">
         <div class="navbar-end">
           <router-link
             active-class="is-active"
@@ -45,18 +39,7 @@
   </nav>
 </template>
 
-<script setup>
-/*
-    imports
-*/
-
-import {ref} from 'vue';
-/*
-    mobile nav
-*/
-
-const showMobileMenu = ref(false);
-</script>
+<script setup></script>
 
 <style scoped>
 @media (max-width: 1023px) {
