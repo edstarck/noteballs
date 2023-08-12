@@ -1,3 +1,4 @@
 export const uiid = () => {
-  return new Date().getTime().toString();
+  const hash = new Date().getTime().toString();
+  return parseInt(Math.random() * 100 * hash);
 };

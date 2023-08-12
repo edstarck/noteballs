@@ -16,7 +16,7 @@ const routes = [
     component: StatsView,
   },
   {
-    path: '/edit',
+    path: '/edit/:id',
     name: 'edit',
     component: EditNoteView,
   },
