@@ -37,6 +37,7 @@ const addNote = () => {
       :modelValue="newNote"
       @update:modelValue="(newValue) => (newNote = newValue)"
       ref="addEditNoteRef"
+      placeholder="Add a new note"
     >
       <template #buttons>
         <button

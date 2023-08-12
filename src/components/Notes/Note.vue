@@ -2,19 +2,13 @@
 /*
   imports
 */
-import {computed, ref} from 'vue';
+import {computed} from 'vue';
 import {useStoreNotes} from '@/stores/storeNotes';
-import {useRouter} from 'vue-router';
 
 /*
   store
 */
 const storeNotes = useStoreNotes();
-
-/*
-  router
-*/
-const router = useRouter();
 
 /*
   props
@@ -43,17 +37,6 @@ const characterLength = computed(() => {
     length = props.note.content.length;
   return `${length} ${description}`;
 });
-
-/*
-  handle edit delete clicked
-*/
-
-const handleDeleteClicked = () => {
-  storeNotes.delete(props.note.id);
-};
-const handleEditClicked = () => {
-  router.push({name: 'edit'});
-};
 </script>
 
 <template>
@@ -67,10 +50,16 @@ const handleEditClicked = () => {
       </div>
     </div>
     <footer class="card-footer">
-      <a @click.prevent="handleEditClicked" href="#" class="card-footer-item"
-        >Edit</a
+      <RouterLink
+        :to="{name: 'edit', params: {id: props.note.id}}"
+        class="card-footer-item"
       >
-      <a @click.prevent="handleDeleteClicked" href="#" class="card-footer-item"
+        Edit
+      </RouterLink>
+      <a
+        @click.prevent="storeNotes.delete(props.note.id)"
+        href="#"
+        class="card-footer-item"
         >Delete</a
       >
     </footer>

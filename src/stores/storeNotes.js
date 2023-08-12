@@ -5,24 +5,25 @@ export const useStoreNotes = defineStore('notes', {
   state: () => ({
     notes: [
       {
-        id: 'id1',
+        id: uiid(),
         content:
           'Sit irure consectetur nostrud mollit cillum ipsum et. Ut elit eiusmod nulla incididunt ullamco ut Lorem exercitation amet deserunt enim. Ea qui officia non amet pariatur. Excepteur ea ex sunt in consequat fugiat deserunt.',
       },
       {
-        id: 'id2',
+        id: uiid(),
         content:
           'Sit irure consectetur nostrud mollit cillum ipsum et. Ut elit eiusmod nulla incididunt ullamco ut Lorem exercitation amet deserunt enim. Ea qui officia non amet pariatur.',
       },
       {
-        id: 'id3',
+        id: uiid(),
         content: 'Sit irure consectetur nostrud mollit cillum ipsum et.',
       },
     ],
   }),
   getters: {},
   actions: {
-    add(id, content, callback) {
+    add(content) {
+      console.log('content', content);
       this.notes.unshift({id: uiid(), content});
     },
     edit() {},
