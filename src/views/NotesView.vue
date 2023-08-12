@@ -1,51 +1,32 @@
 <script setup>
 import {ref} from 'vue';
 import Note from '@/components/Notes/Note.vue';
+import {useStoreNotes} from '@/stores/storeNotes';
+import {useMouse} from '../use/mouse';
+
+// store
+const storeNotes = useStoreNotes();
+
+// composable
+const {x, y} = useMouse();
 
 const newNote = ref('');
-let notes = ref([
-  {
-    id: 'id1',
-    content:
-      'Sit irure consectetur nostrud mollit cillum ipsum et. Ut elit eiusmod nulla incididunt ullamco ut Lorem exercitation amet deserunt enim. Ea qui officia non amet pariatur. Excepteur ea ex sunt in consequat fugiat deserunt.',
-  },
-  {
-    id: 'id2',
-    content:
-      'Sit irure consectetur nostrud mollit cillum ipsum et. Ut elit eiusmod nulla incididunt ullamco ut Lorem exercitation amet deserunt enim. Ea qui officia non amet pariatur. Excepteur ea ex sunt in consequat fugiat deserunt.',
-  },
-  {
-    id: 'id3',
-    content: 'Sit irure consectetur nostrud mollit cillum ipsum et.',
-  },
-]);
 const newNoteRef = ref(null);
 
-const addNote = () => {
-  const currentDate = new Date().getTime(),
-    id = currentDate.toString(),
-    note = {id, content: newNote.value};
-
-  notes.value.unshift(note);
-
-  newNote.value = '';
-
-  newNoteRef.value.focus();
-};
-
 /*
-
+  add delete notes
 */
 
-const deleteNote = (id) => {
-  notes.value = notes.value.filter((note) => note.id !== id);
-};
-const editNote = (content) => {
-  newNote.value = content;
+const addNote = () => {
+  storeNotes.add(newNote.value);
+  newNote.value = '';
+  newNoteRef.value.focus();
 };
 </script>
 
 <template>
+  <p class="mb-4">Mouse position is at: {{ x }}, {{ y }}</p>
+
   <div class="notes">
     <div class="card has-background-success-dark p-4 mb-5">
       <div class="field">
@@ -72,12 +53,6 @@ const editNote = (content) => {
       </div>
     </div>
 
-    <Note
-      v-for="note in notes"
-      :key="note.id"
-      :note="note"
-      @deleteClicked="deleteNote"
-      @editClicked="editNote"
-    />
+    <Note v-for="note in storeNotes.notes" :key="note.id" :note="note" />
   </div>
 </template>

@@ -2,7 +2,19 @@
 /*
   imports
 */
-import {computed} from 'vue';
+import {computed, ref} from 'vue';
+import {useStoreNotes} from '@/stores/storeNotes';
+import {useRouter} from 'vue-router';
+
+/*
+  store
+*/
+const storeNotes = useStoreNotes();
+
+/*
+  router
+*/
+const router = useRouter();
 
 /*
   props
@@ -19,7 +31,7 @@ const props = defineProps({
   emits
 */
 
-const emit = defineEmits(['deleteClicked', 'editClicked']);
+const emit = defineEmits(['editClicked']);
 
 /*
   character length
@@ -33,18 +45,14 @@ const characterLength = computed(() => {
 });
 
 /*
-  handle delete clicked
+  handle edit delete clicked
 */
 
 const handleDeleteClicked = () => {
-  emit('deleteClicked', props.note.id);
+  storeNotes.delete(props.note.id);
 };
-/*
-  handle edit clicked
-*/
-
 const handleEditClicked = () => {
-  emit('editClicked', props.note.content);
+  router.push({name: 'edit'});
 };
 </script>
 
