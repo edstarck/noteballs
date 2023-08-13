@@ -20,7 +20,15 @@ export const useStoreNotes = defineStore('notes', {
       },
     ],
   }),
-  getters: {},
+  getters: {
+    getNoteContent: (state) => (id) => {
+      const note = state.notes.find((note) => {
+        return note.id == id;
+      });
+
+      return note.content;
+    },
+  },
   actions: {
     add(content) {
       console.log('content', content);
