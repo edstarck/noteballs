@@ -2,7 +2,7 @@
 /*
   imports
 */
-import {ref} from 'vue';
+import {ref, watch} from 'vue';
 import OneNote from '@/components/Notes/Note.vue';
 import {useStoreNotes} from '@/stores/storeNotes';
 import {useMouse} from '../use/mouse';
@@ -28,6 +28,16 @@ const addNote = () => {
   storeNotes.add(id, newNote.value);
   newNote.value = '';
 };
+
+/*
+  watch characters
+*/
+
+watch(newNote, (newValue, oldValue) => {
+  if (newNote.value.length === 100) {
+    alert('Only 100 characters allowed gosh darnit!');
+  }
+});
 </script>
 
 <template>

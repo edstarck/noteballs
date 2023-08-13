@@ -32,6 +32,7 @@ defineEmits(['update:modelValue']);
           @input="$emit('update:modelValue', $event.target.value)"
           class="textarea"
           :placeholder="placeholder"
+          maxlength="100"
           v-autofocus
         ></textarea>
       </div>
