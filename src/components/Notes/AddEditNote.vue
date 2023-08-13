@@ -1,5 +1,5 @@
 <script setup>
-import {ref} from 'vue';
+import {vAutofocus} from '@/directives/vAutofocus';
 
 defineProps({
   modelValue: {
@@ -18,21 +18,8 @@ defineProps({
     type: String,
   },
 });
+
 defineEmits(['update:modelValue']);
-
-const textareaRef = ref('null');
-
-/*
-    focus textarea
-*/
-
-const focusTextarea = () => {
-  textareaRef.value.focus();
-};
-
-defineExpose({
-  focusTextarea,
-});
 </script>
 
 <template>
@@ -45,7 +32,7 @@ defineExpose({
           @input="$emit('update:modelValue', $event.target.value)"
           class="textarea"
           :placeholder="placeholder"
-          ref="textareaRef"
+          v-autofocus
         ></textarea>
       </div>
     </div>
