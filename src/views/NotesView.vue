@@ -7,6 +7,7 @@ import OneNote from '@/components/Notes/Note.vue';
 import {useStoreNotes} from '@/stores/storeNotes';
 import {useMouse} from '../use/mouse';
 import AddEditNote from '@/components/Notes/AddEditNote.vue';
+import {uiid} from '../utils/uiid';
 
 // store
 const storeNotes = useStoreNotes();
@@ -17,13 +18,14 @@ const {x, y} = useMouse();
 //state
 const newNote = ref('');
 const addEditNoteRef = ref(null);
+const id = uiid();
 
 /*
   add delete notes
 */
 
 const addNote = () => {
-  storeNotes.add(newNote.value);
+  storeNotes.add(id, newNote.value);
   newNote.value = '';
   addEditNoteRef.value.focusTextarea();
 };
