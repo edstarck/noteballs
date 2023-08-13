@@ -8,6 +8,7 @@ import {useStoreNotes} from '@/stores/storeNotes';
 import {useMouse} from '../use/mouse';
 import AddEditNote from '@/components/Notes/AddEditNote.vue';
 import {uiid} from '../utils/uiid';
+import {useWatchCharacters} from '@/use/useWatchCharacters';
 
 // store
 const storeNotes = useStoreNotes();
@@ -33,11 +34,7 @@ const addNote = () => {
   watch characters
 */
 
-watch(newNote, (newValue, oldValue) => {
-  if (newNote.value.length === 100) {
-    alert('Only 100 characters allowed gosh darnit!');
-  }
-});
+useWatchCharacters(newNote, 100);
 </script>
 
 <template>

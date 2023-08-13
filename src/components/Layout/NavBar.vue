@@ -1,3 +1,35 @@
+<script setup>
+import {ref} from 'vue';
+import {onClickOutside} from '@vueuse/core';
+
+/*
+  state
+*/
+const showMobileNav = ref(false);
+const navBarMenuRef = ref(null);
+const navBarBurgerRef = ref(null);
+
+/*
+  mobile menu clicked
+*/
+function handleNavbarClicked() {
+  showMobileNav.value = !showMobileNav.value;
+}
+
+/*
+  mobile menu click outside to close
+*/
+onClickOutside(
+  navBarMenuRef,
+  () => {
+    if (showMobileNav.value) {
+      showMobileNav.value = false;
+    }
+  },
+  {ignore: [navBarBurgerRef]}
+);
+</script>
+
 <template>
   <nav class="navbar is-success" role="navigation" aria-label="main navigation">
     <div class="container is-max-desktop">
@@ -16,6 +48,7 @@
           aria-label="menu"
           aria-expanded="false"
           data-target="navbarBasic"
+          ref="navBarBurgerRef"
         >
           <span aria-hidden="true"></span>
           <span aria-hidden="true"></span>
@@ -27,6 +60,7 @@
         id="navbarBasic"
         class="navbar-menu"
         :class="{'is-active': showMobileNav}"
+        ref="navBarMenuRef"
       >
         <div class="navbar-end">
           <router-link
@@ -50,22 +84,6 @@
     </div>
   </nav>
 </template>
-
-<script setup>
-import {ref} from 'vue';
-
-/*
-  state
-*/
-const showMobileNav = ref(false);
-
-/*
-  mobile menu clicked
-*/
-function handleNavbarClicked() {
-  showMobileNav.value = !showMobileNav.value;
-}
-</script>
 
 <style scoped>
 @media (max-width: 1023px) {
