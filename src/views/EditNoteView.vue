@@ -1,12 +1,25 @@
 <script setup>
 import {ref} from 'vue';
+import {useRoute} from 'vue-router';
+import {useStoreNotes} from '@/stores/storeNotes';
 import AddEditNote from '@/components/Notes/AddEditNote.vue';
+
+/*
+    router
+*/
+const route = useRoute();
+
+/*
+    store
+*/
+const notesStore = useStoreNotes();
 
 /*
     note
 */
 
 const noteContent = ref('');
+noteContent.value = notesStore.getNoteContent(route.params.id);
 </script>
 
 <template>
