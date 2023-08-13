@@ -5,8 +5,10 @@
         <div class="navbar-item is-size-4 is-family-monospace">Noteballs</div>
 
         <a
+          @click="handleNavbarClicked"
           role="button"
           class="navbar-burger"
+          :class="{'is-active': showMobileNav}"
           aria-label="menu"
           aria-expanded="false"
           data-target="navbarBasic"
@@ -17,9 +19,14 @@
         </a>
       </div>
 
-      <div id="navbarBasic" class="navbar-menu">
+      <div
+        id="navbarBasic"
+        class="navbar-menu"
+        :class="{'is-active': showMobileNav}"
+      >
         <div class="navbar-end">
           <router-link
+            @click="handleNavbarClicked"
             active-class="is-active"
             :to="{name: 'notes'}"
             class="navbar-item"
@@ -27,6 +34,7 @@
             Notes
           </router-link>
           <router-link
+            @click="handleNavbarClicked"
             active-class="is-active"
             :to="{name: 'stats'}"
             class="navbar-item"
@@ -39,7 +47,21 @@
   </nav>
 </template>
 
-<script setup></script>
+<script setup>
+import {ref} from 'vue';
+
+/*
+  state
+*/
+const showMobileNav = ref(false);
+
+/*
+  mobile menu clicked
+*/
+function handleNavbarClicked() {
+  showMobileNav.value = !showMobileNav.value;
+}
+</script>
 
 <style scoped>
 @media (max-width: 1023px) {

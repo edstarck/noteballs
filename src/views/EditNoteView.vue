@@ -1,6 +1,6 @@
 <script setup>
 import {ref} from 'vue';
-import {useRoute} from 'vue-router';
+import {useRoute, useRouter} from 'vue-router';
 import {useStoreNotes} from '@/stores/storeNotes';
 import AddEditNote from '@/components/Notes/AddEditNote.vue';
 
@@ -8,6 +8,7 @@ import AddEditNote from '@/components/Notes/AddEditNote.vue';
     router
 */
 const route = useRoute();
+const router = useRouter();
 
 /*
     store
@@ -20,6 +21,15 @@ const notesStore = useStoreNotes();
 
 const noteContent = ref('');
 noteContent.value = notesStore.getNoteContent(route.params.id);
+
+/*
+  save clicked
+*/
+
+const handleSaveClicked = () => {
+  notesStore.update(route.params.id, noteContent.value);
+  router.push({name: 'notes'});
+};
 </script>
 
 <template>
@@ -41,6 +51,7 @@ noteContent.value = notesStore.getNoteContent(route.params.id);
         Cancel
       </button>
       <button
+        @click="handleSaveClicked"
         :disabled="!noteContent"
         class="button is-link has-background-link"
       >
