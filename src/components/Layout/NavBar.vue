@@ -2,7 +2,11 @@
   <nav class="navbar is-success" role="navigation" aria-label="main navigation">
     <div class="container is-max-desktop">
       <div class="navbar-brand">
-        <div class="navbar-item is-size-4 is-family-monospace">Noteballs</div>
+        <div class="navbar-item is-size-4 is-family-monospace">
+          <router-link class="has-text-white" :to="{name: 'notes'}"
+            >Noteballs</router-link
+          >
+        </div>
 
         <a
           @click="handleNavbarClicked"

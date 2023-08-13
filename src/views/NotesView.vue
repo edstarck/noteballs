@@ -27,7 +27,6 @@ const id = uiid();
 const addNote = () => {
   storeNotes.add(id, newNote.value);
   newNote.value = '';
-  addEditNoteRef.value.focusTextarea();
 };
 </script>
 

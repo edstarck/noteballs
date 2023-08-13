@@ -1,5 +1,6 @@
 <script setup>
 import {useStoreNotes} from '@/stores/storeNotes';
+import {vAutofocus} from '@/directives/vAutofocus';
 
 // store
 const storeNotes = useStoreNotes();
@@ -25,6 +26,13 @@ const storeNotes = useStoreNotes();
         </tr>
       </tbody>
     </table>
+    <input
+      v-autofocus
+      class="input"
+      type="text"
+      placeholder="Do you like noteballs?"
+      aria-label="do you like noteballs?"
+    />
   </div>
 </template>
 
