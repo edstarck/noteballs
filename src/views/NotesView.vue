@@ -2,12 +2,11 @@
 /*
   imports
 */
-import {ref, watch} from 'vue';
+import {ref} from 'vue';
 import OneNote from '@/components/Notes/Note.vue';
 import {useStoreNotes} from '@/stores/storeNotes';
 import {useMouse} from '../use/mouse';
 import AddEditNote from '@/components/Notes/AddEditNote.vue';
-import {uiid} from '../utils/uiid';
 import {useWatchCharacters} from '@/use/useWatchCharacters';
 
 // store
@@ -19,20 +18,15 @@ const {x, y} = useMouse();
 //state
 const newNote = ref('');
 const addEditNoteRef = ref(null);
-const id = uiid();
 
 /*
-  add delete notes
+  add note
 */
 
 const addNote = () => {
-  storeNotes.add(id, newNote.value);
+  storeNotes.add(newNote.value);
   newNote.value = '';
 };
-
-/*
-  watch characters
-*/
 
 useWatchCharacters(newNote, 100);
 </script>

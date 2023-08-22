@@ -1,23 +1,20 @@
 import {defineStore, acceptHMRUpdate} from 'pinia';
+import {
+  collection,
+  onSnapshot,
+  doc,
+  deleteDoc,
+  updateDoc,
+  setDoc,
+} from 'firebase/firestore';
+import {db} from '@/js/firebase';
+import {uiid} from '@/utils/uiid';
+
+const notesCollectionRef = collection(db, 'notes');
 
 export const useStoreNotes = defineStore('notes', {
   state: () => ({
-    notes: [
-      {
-        id: 9,
-        content:
-          'Sit irure consectetur nostrud mollit cillum ipsum et. Ut elit eiusmod nulla incididunt ullamco ut Lorem exercitation amet deserunt enim. Ea qui officia non amet pariatur. Excepteur ea ex sunt in consequat fugiat deserunt.',
-      },
-      {
-        id: 10,
-        content:
-          'Sit irure consectetur nostrud mollit cillum ipsum et. Ut elit eiusmod nulla incididunt ullamco ut Lorem exercitation amet deserunt enim. Ea qui officia non amet pariatur.',
-      },
-      {
-        id: 11,
-        content: 'Sit irure consectetur nostrud mollit cillum ipsum et.',
-      },
-    ],
+    notes: [],
   }),
   getters: {
     getNoteContent: (state) => (id) => {
@@ -38,15 +35,35 @@ export const useStoreNotes = defineStore('notes', {
     },
   },
   actions: {
-    add(id, content) {
-      this.notes.unshift({id, content});
+    async get() {
+      onSnapshot(notesCollectionRef, (querySnapshot) => {
+        const notes = [];
+
+        querySnapshot.forEach((doc) => {
+          const note = {
+            id: doc.id,
+            content: doc.data().content,
+          };
+          notes.push(note);
+        });
+
+        this.notes = notes;
+      });
     },
-    update(id, content) {
-      const index = this.notes.findIndex((note) => note.id == id);
-      this.notes[index].content = content;
+    async add(content) {
+      const id = uiid();
+
+      await setDoc(doc(notesCollectionRef, id), {
+        content,
+      });
     },
-    delete(id) {
-      this.notes = this.notes.filter((note) => note.id !== id);
+    async delete(idToDelete) {
+      await deleteDoc(doc(notesCollectionRef, idToDelete));
+    },
+    async update(id, content) {
+      await updateDoc(doc(notesCollectionRef, id), {
+        content,
+      });
     },
   },
 });
