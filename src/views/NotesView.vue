@@ -40,6 +40,7 @@ useWatchCharacters(newNote, 100);
 <template>
   <p class="mb-4">Mouse position is at: {{ x }}, {{ y }}</p>
 
+  <!-- :modelValue и @update:modelValue можно заменить на v-model -->
   <div class="notes">
     <add-edit-note
       :modelValue="newNote"
