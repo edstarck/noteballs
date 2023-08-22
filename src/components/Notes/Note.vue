@@ -27,6 +27,8 @@ const emit = defineEmits(['editClicked']);
 */
 
 const characterLength = computed(() => {
+  if (!props.note.content.length) return false;
+
   const description =
       props.note.content.length > 1 ? 'characters' : 'character',
     length = props.note.content.length;
