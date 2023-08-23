@@ -54,7 +54,6 @@ export const useStoreNotes = defineStore('notes', {
           };
           notes.push(note);
         });
-
         // await sleep(3000);
         this.notes = notes;
         this.notesLoaded = false;
